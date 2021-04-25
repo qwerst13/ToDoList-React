@@ -2,8 +2,6 @@ import React from 'react';
 
 import Footer from '../Footer';
 import NewTaskForm from '../NewTaskForm';
-import Task from '../Task';
-import TaskFilter from '../TasksFilter';
 import TaskList from '../TaskList';
 
 import './App.css';
