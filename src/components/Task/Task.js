@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Task.css';
 
-const Task = ({className, description, date}) => {
+const Task = ( {description, date} ) => {
     return (
         <div>
             <div className="view">
