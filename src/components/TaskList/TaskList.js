@@ -4,13 +4,13 @@ import Task from '../Task';
 
 import './TaskList.css';
 
+
+
 const TaskList = ( { dataList } ) => {
     const elements = dataList.map((element) => {
-        const {id, className, ...elementProperties} = element;
+        const {id, ...elementProperties} = element;
         return (
-            <li key={id} className={className}>
-                <Task { ...elementProperties } />
-            </li>
+                <Task key={id} { ...elementProperties } />
         );
     });
     return (
