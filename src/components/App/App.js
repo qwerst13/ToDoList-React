@@ -9,10 +9,10 @@ import './App.css';
 export default class App extends React.Component {
     state = {
         data: [
-            {id: 0, className: '', description: 'Completed task', filtered: false, date: new Date()},
-            {id: 1, className: '', description: 'Psst', filtered: false, date: new Date()},
-            {id: 2, className: '', description: 'Active', filtered: false, date: new Date()},
-            {id: 3, className: '', description: 'One more todo item', filtered: false, date: new Date()}
+            {id: 0, className: '', description: 'Completed task', date: new Date()},
+            {id: 1, className: '', description: 'Psst', date: new Date()},
+            {id: 2, className: '', description: 'Active', date: new Date()},
+            {id: 3, className: '', description: 'One more todo item', date: new Date()}
         ],
         activeFilter: 'All'
     };
@@ -36,39 +36,7 @@ export default class App extends React.Component {
 
     filterTasks = (e) => {
         if (e.target.tagName==='BUTTON') {
-            if (e.target.textContent === 'All') {
-                this.setState((state) => {
-                    const newData = state.data.map((item)=>{
-                        return {...item, filtered: false}
-                    });
-                    return {
-                        activeFilter: e.target.textContent,
-                        data: newData
-                    };
-                })
-            }
-            if (e.target.textContent === 'Active') {
-                this.setState((state) => {
-                    const newData = state.data.map((item)=>{
-                        return {...item, filtered: (item.className === 'completed')}
-                    });
-                    return {
-                        activeFilter: e.target.textContent,
-                        data: newData
-                    };
-                })
-            }
-            if (e.target.textContent === 'Completed') {
-                this.setState((state) => {
-                    const newData = state.data.map((item)=>{
-                        return {...item, filtered: (item.className === '')}
-                    });
-                    return {
-                        activeFilter: e.target.textContent,
-                        data: newData
-                    };
-                })
-            }
+            this.setState({activeFilter: e.target.textContent})
         }
     };
 
@@ -80,14 +48,13 @@ export default class App extends React.Component {
     };
 
     completeTask = (id) => {
-        this.setState(({data, activeFilter}) => {
+        this.setState(({data}) => {
             const index = data.findIndex((item) => item.id === id);
             const {className: currentClass} = data[index];
 
             const newClass = (currentClass === '') ? 'completed' : '';
-            const newFilteredState = (activeFilter !== 'All');
 
-            const newItem = {...data[index], className: newClass, filtered: newFilteredState};
+            const newItem = {...data[index], className: newClass};
 
             return {data: [
                 ...data.slice(0, index),
@@ -142,6 +109,19 @@ export default class App extends React.Component {
 
         const toDoCount = data.filter((item) => (item.className !== 'completed')).length;
 
+        const dataAfterFilter = data.filter((item) => {
+            if (activeFilter === 'All') {
+                return true;
+            }
+            if (activeFilter === 'Active') {
+                if (item.className === '') return true;
+            }
+            if (activeFilter === 'Completed') {
+                if (item.className === 'completed') return true;
+            }
+
+        });
+
         return (
             <div>
                 <section className="todoapp">
@@ -150,7 +130,7 @@ export default class App extends React.Component {
                     />
                     <section className="main">
                         <TaskList
-                            dataList={ data }
+                            dataList={ dataAfterFilter }
                             onDelete={ this.deleteTask }
                             onComplete={ this.completeTask }
                             onEdit={ this.editTask }

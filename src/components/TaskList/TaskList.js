@@ -5,7 +5,6 @@ import Task from './Task';
 import './TaskList.css';
 
 
-
 const TaskList = ( { dataList, onDelete, onComplete, onEdit, finishEditing } ) => {
     const elements = dataList.map((element) => {
         const {id, ...elementProperties} = element;
