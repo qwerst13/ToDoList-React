@@ -76,9 +76,7 @@ export default class App extends React.Component {
         })
     };
 
-    finishEditing = (e, value, id) => {
-        //confirm changes - Enter
-        if (e.keyCode===13){
+    finishEditing = (value, id) => {
             this.setState(({data}) => {
                 const index = this.state.data.findIndex((item) => item.id === id);
                 const newItem = {...data[index], description: value, className: ''};
@@ -88,20 +86,6 @@ export default class App extends React.Component {
                     ...data.slice(index+1)
                 ]}
             });
-        }
-
-        //cancel changes - Esc
-        if (e.keyCode===27){
-            this.setState(({data}) => {
-                const index = this.state.data.findIndex((item) => item.id === id);
-                const newItem = {...data[index], className: ''};
-                return {data: [
-                    ...data.slice(0, index),
-                    newItem,
-                    ...data.slice(index+1)
-                ]}
-            });
-        }
     };
 
     render(){

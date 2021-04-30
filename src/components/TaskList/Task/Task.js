@@ -9,8 +9,15 @@ export default class Task extends React.Component {
         this.setState({value: e.target.value})
     };
 
+    finishEditing = (e) => {
+        //confirm changes - Enter
+        if (e.keyCode===13){
+            this.props.finishEditing(this.state.value, this.props.id)
+        }
+    };
+
     render () {
-        const {className, id, description, date, onDelete, onComplete, onEdit, finishEditing} = this.props;
+        const {className, description, date, onDelete, onComplete, onEdit} = this.props;
         const isChecked = (className==='completed');
 
         return (
@@ -27,14 +34,13 @@ export default class Task extends React.Component {
                     </div>
                     <input
                         onChange={ this.editTask }
-                        onKeyDown={ (e) => finishEditing(e, this.state.value, id) }
+                        onKeyDown={ this.finishEditing }
                         type="text"
                         className="edit"
                         value={ this.state.value }
                     />
                 </div>
             </li>
-
         );
     }
 }
