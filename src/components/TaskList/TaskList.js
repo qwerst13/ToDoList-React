@@ -4,11 +4,13 @@ import Task from './Task';
 
 import './TaskList.css';
 
+export default class TaskList extends React.Component {
 
-const TaskList = ( { dataList, onDelete, onComplete, onEdit, finishEditing } ) => {
-    const elements = dataList.map((element) => {
-        const {id, ...elementProperties} = element;
-        return (
+    render() {
+        const { dataList, onDelete, onComplete, onEdit, finishEditing } = this.props;
+        const elements = dataList.map((element) => {
+            const {id, ...elementProperties} = element;
+            return (
                 <Task
                     key={id}
                     id={id}
@@ -18,13 +20,13 @@ const TaskList = ( { dataList, onDelete, onComplete, onEdit, finishEditing } ) =
                     finishEditing={ finishEditing }
                     { ...elementProperties }
                 />
-        );
-    });
-    return (
-        <ul className="todo-list">
-            { elements }
-        </ul>
-    );
-};
+            );
+        });
 
-export default TaskList;
+        return (
+            <ul className="todo-list">
+                { elements }
+            </ul>
+        );
+    }
+};
