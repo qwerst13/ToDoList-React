@@ -10,7 +10,7 @@ export default class App extends React.Component {
     state = {
         data: [
             {id: 0, className: '', description: 'Completed task', date: new Date()},
-            {id: 1, className: '', description: 'Psst', date: new Date()},
+            {id: 1, className: '', description: 'Billy Bones', date: new Date()},
             {id: 2, className: '', description: 'Active', date: new Date()},
             {id: 3, className: '', description: 'One more todo item', date: new Date()}
         ],

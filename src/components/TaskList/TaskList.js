@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Task from './Task';
 
@@ -6,18 +7,31 @@ import './TaskList.css';
 
 export default class TaskList extends React.Component {
 
+    static defaultProps = {
+        dataList: [],
+        onDelete: () => {},
+        onComplete: () => {},
+        onEdit: () => {},
+        finishEditing: () => {}
+    };
+
+    static propTypes = {
+        dataList: PropTypes.arrayOf(PropTypes.object),
+        onDelete: PropTypes.func,
+        onComplete: PropTypes.func,
+        onEdit: PropTypes.func,
+        finishEditing: PropTypes.func
+    };
+
     render() {
-        const { dataList, onDelete, onComplete, onEdit, finishEditing } = this.props;
+        const { dataList, ...handlers } = this.props;
         const elements = dataList.map((element) => {
-            const {id, ...elementProperties} = element;
+            const { ...elementProperties } = element;
+
             return (
                 <Task
-                    key={id}
-                    id={id}
-                    onDelete={ () => onDelete(id) }
-                    onComplete={ () => onComplete(id) }
-                    onEdit={  () => onEdit(id)  }
-                    finishEditing={ finishEditing }
+                    key={ elementProperties.id }
+                    { ...handlers }
                     { ...elementProperties }
                 />
             );
