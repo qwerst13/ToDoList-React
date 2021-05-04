@@ -67,6 +67,8 @@
 .todo-list li label .created {
   font-size: 13px;
   color: gray;
+  flex-basis: 25%;
+  flex-shrink: 0;
 }
 
 .todo-list li label .description {
@@ -89,7 +91,7 @@
   bottom: -3px;
   width: 30px;
   height: 40px;
-  font-size: 34px;
+  font-size: 0;
   color: #cc9a9a;
   margin: auto 0 11px;
   transition: color 0.2s ease-out;
@@ -106,15 +108,17 @@
 
 .todo-list li .icon-destroy:after {
   content: '×';
+  font-size: 34px;
 }
 
 .todo-list li .icon-edit {
-  font-size: 19px;
+  font-size: 0;
   right: 45px;
 }
 
 .todo-list li .icon-edit:after {
   content: '✎';
+  font-size: 19px;
 }
 
 .todo-list li .edit {
