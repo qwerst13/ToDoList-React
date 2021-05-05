@@ -21,6 +21,7 @@
   "rules": {
     "curly": ["error"],
     "max-depth": ["warn", 4],
+    "max-len": ["warn", 120],
     "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
     "no-lonely-if": ["error"],
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
