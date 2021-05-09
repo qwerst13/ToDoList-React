@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './TaskFilter.css';
+import './TaskFilter.scss';
 
 const TaskFilter = ({ filterTasks, selected }) => {
     const buttonTypes = ['All', 'Active', 'Completed'];

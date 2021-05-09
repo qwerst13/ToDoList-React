@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './NewTaskForm.css';
+import './NewTaskForm.scss';
 
 export default class NewTaskForm extends React.Component {
   static defaultProps = {

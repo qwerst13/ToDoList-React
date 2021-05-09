@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import './Task.css';
+import './Task.scss';
 
 export default class Task extends React.Component {
   static defaultProps = {
     id: Date.now().toString(),
-    className: '',
+    isCompleted: false,
+    isEdited: false,
     description: 'Empty!?',
     date: Date.now(),
     onDelete: () => {},
@@ -18,7 +19,8 @@ export default class Task extends React.Component {
 
   static propTypes = {
     id: PropTypes.number,
-    className: PropTypes.oneOf(['', 'completed', 'editing']),
+    isCompleted: PropTypes.bool,
+    isEdited: PropTypes.bool,
     description: PropTypes.string,
     date: PropTypes.instanceOf(Date),
     onDelete: PropTypes.func,
@@ -36,7 +38,6 @@ export default class Task extends React.Component {
 
     this.state = {
       value: description,
-      prevClass: '',
       timeToNow: formatDistanceToNow(date, { includeSeconds: true }),
     };
   }
@@ -56,14 +57,6 @@ export default class Task extends React.Component {
     });
   };
 
-  onEdit = () => {
-    const { onEdit, id, className } = this.props;
-
-    this.setState({prevClass: className});
-
-    onEdit(id);
-  }
-
   editTask = (event) => {
     const {value} = event.target;
 
@@ -71,29 +64,29 @@ export default class Task extends React.Component {
   };
 
   finishEditing = (event) => {
-    const { value, prevClass } = this.state;
+    const { value } = this.state;
     const { id, finishEditing } = this.props;
     // confirm changes - Enter
     if (event.keyCode === 13) {
-      finishEditing(value, id, prevClass);
+      finishEditing(value, id);
     }
   };
 
   render() {
-    const { className, description, onDelete, onComplete, id } = this.props;
+    const { isCompleted, isEdited, description, onDelete, onComplete, onEdit, id } = this.props;
     const { timeToNow, value } = this.state;
-    const isChecked = className === 'completed';
+    const className = isEdited && 'editing' || isCompleted && 'completed' || '';
 
     return (
       <li className={className}>
         <div>
           <div className="view">
-            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isChecked} />
+            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted} />
             <label>
               <span className="description">{description}</span>
               <span className="created">{timeToNow}</span>
             </label>
-            <button type="button" onClick={this.onEdit} className="icon icon-edit">Edit</button>
+            <button type="button" onClick={() => onEdit(id)} className="icon icon-edit">Edit</button>
             <button type="button" onClick={() => onDelete(id)} className="icon icon-destroy">Destroy</button>
           </div>
           <input onChange={this.editTask} onKeyDown={this.finishEditing} type="text" className="edit" value={value} />

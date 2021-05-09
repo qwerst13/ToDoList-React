@@ -4,43 +4,29 @@ import Footer from '../Footer';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 
-import './App.css';
+import './App.scss';
 
 export default class App extends React.Component {
   state = {
     data: [
-      {
-        id: 0, className: '', description: 'Completed task', date: new Date(),
-      },
-      {
-        id: 1, className: '', description: 'Billy Bones', date: new Date(),
-      },
-      {
-        id: 2, className: '', description: 'Active', date: new Date(),
-      },
-      {
-        id: 3, className: '', description: 'One more todo item', date: new Date(),
-      },
+      this.createTodoItem('Create your task'),
     ],
     activeFilter: 'All',
   };
 
   deleteTask = (id) => {
     this.setState(({ data }) => {
-      const index = data.findIndex((item) => item.id === id);
-      const newData = data.slice();
-
-      newData.splice(index, 1);
+      const newData = data.filter((item) => item.id !== id);
 
       return { data: newData };
     });
   };
 
   clearCompleted = () => {
-    const {data} = this.state;
+    this.setState(({data}) => {
+      const newData = data.filter((item) => !item.isCompleted);
 
-    data.forEach(({ id, className }) => {
-      if (className === 'completed') this.deleteTask(id);
+      return {data: newData}
     });
   };
 
@@ -53,59 +39,52 @@ export default class App extends React.Component {
   };
 
   createTask = (value) => {
-    const newTask = {
-      id: Date.now(), className: '', description: value, date: new Date(),
-    };
+    const newTask = this.createTodoItem(value);
+
     this.setState(({ data }) => ({ data: [...data, newTask] }));
   };
 
   completeTask = (id) => {
     this.setState(({ data }) => {
-      const index = data.findIndex((item) => item.id === id);
-      const { className: currentClass } = data[index];
+      const newData = data.map((item) => (item.id === id) ? {...item, isCompleted: !item.isCompleted} : item);
 
-      const newClass = currentClass === '' ? 'completed' : '';
-
-      const newItem = { ...data[index], className: newClass };
-
-      return { data: [...data.slice(0, index), newItem, ...data.slice(index + 1)] };
+      return { data: newData };
     });
   };
 
   editTask = (id) => {
     this.setState(({ data }) => {
+      const newData = data.map((item) => (item.id === id) ? {...item, isEdited: !item.isEdited} : item);
+
+      return { data: newData };
+    });
+  };
+
+  finishEditing = (value, id) => {
+    this.setState(({data}) => {
       const index = data.findIndex((item) => item.id === id);
-      const newItem = { ...data[index], className: 'editing' };
+      const newItem = { ...data[index], description: value, isEdited: false };
+
       return { data: [...data.slice(0, index), newItem, ...data.slice(index + 1)] };
     });
   };
 
-  finishEditing = (value, id, prevClass) => {
-    const {data} = this.state;
-
-    this.setState(() => {
-      const index = data.findIndex((item) => item.id === id);
-      const newItem = { ...data[index], description: value, className: prevClass };
-      return { data: [...data.slice(0, index), newItem, ...data.slice(index + 1)] };
-    });
+  createTodoItem (value) {
+    return {id: Date.now(), isCompleted: false, isEdited: false, description: value, date: new Date(),}
   };
 
   render() {
     const { data, activeFilter } = this.state;
 
-    const toDoCount = data.filter((item) => item.className !== 'completed').length;
+    const toDoCount = data.filter((item) => !item.isCompleted).length;
 
     const dataAfterFilter = data.filter((item) => {
-      if (activeFilter === 'All') {
-        return true;
+      switch (activeFilter) {
+        case 'All': return true;
+        case 'Active': return !item.isCompleted;
+        case 'Completed': return item.isCompleted;
+        default: return false;
       }
-      if (activeFilter === 'Active') {
-        if (item.className === '') return true;
-      }
-      if (activeFilter === 'Completed') {
-        if (item.className === 'completed') return true;
-      }
-      return false;
     });
 
     return (

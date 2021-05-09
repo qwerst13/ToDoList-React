@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-import './TaskList.css';
+import './TaskList.scss';
 
 const TaskList = ({ dataList, ...handlers }) => {
     const elements = dataList.map((element) => {
