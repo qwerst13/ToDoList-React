@@ -80,12 +80,12 @@ export default class App extends React.Component {
     });
   };
 
-  finishEditing = (value, id) => {
+  finishEditing = (value, id, prevClass) => {
     const {data} = this.state;
 
     this.setState(() => {
       const index = data.findIndex((item) => item.id === id);
-      const newItem = { ...data[index], description: value, className: '' };
+      const newItem = { ...data[index], description: value, className: prevClass };
       return { data: [...data.slice(0, index), newItem, ...data.slice(index + 1)] };
     });
   };

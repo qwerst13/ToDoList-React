@@ -36,6 +36,7 @@ export default class Task extends React.Component {
 
     this.state = {
       value: description,
+      prevClass: '',
       timeToNow: formatDistanceToNow(date, { includeSeconds: true }),
     };
   }
@@ -55,6 +56,14 @@ export default class Task extends React.Component {
     });
   };
 
+  onEdit = () => {
+    const { onEdit, id, className } = this.props;
+
+    this.setState({prevClass: className});
+
+    onEdit(id);
+  }
+
   editTask = (event) => {
     const {value} = event.target;
 
@@ -62,16 +71,16 @@ export default class Task extends React.Component {
   };
 
   finishEditing = (event) => {
-    const { value } = this.state;
+    const { value, prevClass } = this.state;
     const { id, finishEditing } = this.props;
     // confirm changes - Enter
     if (event.keyCode === 13) {
-      finishEditing(value, id);
+      finishEditing(value, id, prevClass);
     }
   };
 
   render() {
-    const { className, description, onDelete, onComplete, onEdit, id } = this.props;
+    const { className, description, onDelete, onComplete, id } = this.props;
     const { timeToNow, value } = this.state;
     const isChecked = className === 'completed';
 
@@ -84,7 +93,7 @@ export default class Task extends React.Component {
               <span className="description">{description}</span>
               <span className="created">{timeToNow}</span>
             </label>
-            <button type="button" onClick={() => onEdit(id)} className="icon icon-edit">Edit</button>
+            <button type="button" onClick={this.onEdit} className="icon icon-edit">Edit</button>
             <button type="button" onClick={() => onDelete(id)} className="icon icon-destroy">Destroy</button>
           </div>
           <input onChange={this.editTask} onKeyDown={this.finishEditing} type="text" className="edit" value={value} />
