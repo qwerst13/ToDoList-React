@@ -17,10 +17,10 @@ button {
   appearance: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-button::-moz-focus-inner {
-  border: none;
+  &::-moz-focus-inner {
+    border: none;
+  }
 }
 
 body {
@@ -74,6 +74,14 @@ body {
   position: absolute;
   right: 100%;
   bottom: 100%;
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+      background: none;
+  }
+
+  &:checked + label:before {
+    color: #737373;
+  }
 }
 
 .toggle-all + label {
@@ -85,17 +93,13 @@ body {
   left: -13px;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
-}
 
-.toggle-all + label:before {
-  content: '❯';
-  font-size: 22px;
-  color: #e6e6e6;
-  padding: 10px 27px 10px 27px;
-}
-
-.toggle-all:checked + label:before {
-  color: #737373;
+  &:before {
+    content: '❯';
+    font-size: 22px;
+    color: #e6e6e6;
+    padding: 10px 27px 10px 27px;
+  }
 }
 
 .info {
@@ -104,33 +108,18 @@ body {
   font-size: 11px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-align: center;
-}
 
-.info p {
-  line-height: 1;
-}
-
-.info a {
-  color: inherit;
-  text-decoration: none;
-  font-weight: 400;
-}
-
-.info a:hover {
-  text-decoration: underline;
-}
-
-/*
-	Hack to remove background from Mobile Safari.
-	Can't use it globally since it destroys checkboxes in Firefox
-*/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  .toggle-all, .todo-list li .toggle {
-    background: none;
+  p {
+    line-height: 1;
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
 
-  .todo-list li .toggle {
-    height: 40px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
