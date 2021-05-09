@@ -23,6 +23,8 @@ export default class NewTaskForm extends React.Component {
     const {createTask} = this.props;
     const {value} = this.state;
 
+    if (value.trim() === '') return;
+
     if (event.keyCode === 13) {
       createTask(value);
       this.setState({ value: '' });
