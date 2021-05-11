@@ -78,14 +78,7 @@ export default class App extends React.Component {
 
     const toDoCount = data.filter((item) => !item.isCompleted).length;
 
-    const dataAfterFilter = data.filter((item) => {
-      switch (activeFilter) {
-        case 'All': return true;
-        case 'Active': return !item.isCompleted;
-        case 'Completed': return item.isCompleted;
-        default: return false;
-      }
-    });
+
 
     return (
       <div>
@@ -93,11 +86,12 @@ export default class App extends React.Component {
           <NewTaskForm createTask={this.createTask} />
           <section className="main">
             <TaskList
-              dataList={dataAfterFilter}
+              dataList={data}
               onDelete={this.deleteTask}
               onComplete={this.completeTask}
               onEdit={this.editTask}
               finishEditing={this.finishEditing}
+              filterType={activeFilter}
             />
           </section>
         </section>

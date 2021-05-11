@@ -5,18 +5,28 @@ import Task from './Task';
 
 import './TaskList.scss';
 
-const TaskList = ({ dataList, ...handlers }) => {
-    const elements = dataList.map((element) => {
-      const { ...elementProperties } = element;
+const TaskList = ({ dataList, filterType, ...handlers }) => {
+  const filteredData = dataList.filter((item) => {
+    switch (filterType) {
+      case 'All': return true;
+      case 'Active': return !item.isCompleted;
+      case 'Completed': return item.isCompleted;
+      default: return false;
+    }
+  });
 
-      return <Task key={elementProperties.id} {...handlers} {...elementProperties} />;
-    });
+  const elements = filteredData.map((element) => {
+    const { ...elementProperties } = element;
 
-    return <ul className="todo-list">{elements}</ul>;
+    return <Task key={elementProperties.id} {...handlers} {...elementProperties} />;
+  });
+
+  return <ul className="todo-list">{elements}</ul>;
 }
 
 TaskList.defaultProps = {
   dataList: [],
+  filterType: 'All',
   onDelete: () => {},
   onComplete: () => {},
   onEdit: () => {},
@@ -25,6 +35,7 @@ TaskList.defaultProps = {
 
 TaskList.propTypes = {
   dataList: PropTypes.arrayOf(PropTypes.object),
+  filterType: PropTypes.string,
   onDelete: PropTypes.func,
   onComplete: PropTypes.func,
   onEdit: PropTypes.func,
