@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
+import StopWatch from './StopWatch';
 import './Task.scss';
 
 export default class Task extends React.Component {
@@ -52,6 +53,7 @@ export default class Task extends React.Component {
 
   tick = () => {
     const { date } = this.props;
+
     this.setState({
       timeToNow: formatDistanceToNow(date, { includeSeconds: true }),
     });
@@ -82,10 +84,13 @@ export default class Task extends React.Component {
         <div>
           <div className="view">
             <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted} />
-            <label>
-              <span className="description">{description}</span>
-              <span className="created">{timeToNow}</span>
-            </label>
+            <div className="label">
+              <div className="description">{description}</div>
+              <div className="counters">
+                <div className="created">{timeToNow}</div>
+                <StopWatch />
+              </div>
+            </div>
             <button type="button" onClick={() => onEdit(id)} className="icon icon-edit">Edit</button>
             <button type="button" onClick={() => onDelete(id)} className="icon icon-destroy">Destroy</button>
           </div>

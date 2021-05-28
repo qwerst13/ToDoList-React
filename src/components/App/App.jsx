@@ -78,8 +78,6 @@ export default class App extends React.Component {
 
     const toDoCount = data.filter((item) => !item.isCompleted).length;
 
-
-
     return (
       <div>
         <section className="todoapp">

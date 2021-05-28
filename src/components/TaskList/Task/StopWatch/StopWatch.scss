@@ -1,0 +1,33 @@
+.timer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__play {
+
+    .icon-play {
+      margin: auto 0 9px;
+
+      &:after{
+        content: '▶';
+        font-size: 20px;
+      }
+    }
+  }
+  &__pause {
+
+    .icon-pause {
+      margin: auto 0 11px;
+
+      &:after {
+        content: '⏸';
+        font-size: 24px;
+      }
+    }
+  }
+  &__time {
+    font-size: 20px;
+    color: gray;
+    margin-left: 1rem;
+  }
+}
