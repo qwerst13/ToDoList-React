@@ -16,6 +16,7 @@ export default class Task extends React.Component {
     onComplete: () => {},
     onEdit: () => {},
     finishEditing: () => {},
+    filterType: 'All',
   };
 
   static propTypes = {
@@ -28,6 +29,7 @@ export default class Task extends React.Component {
     onComplete: PropTypes.func,
     onEdit: PropTypes.func,
     finishEditing: PropTypes.func,
+    filterType: PropTypes.string,
   };
 
   updateInterval = 5000;
@@ -75,15 +77,26 @@ export default class Task extends React.Component {
   };
 
   render() {
-    const { isCompleted, isEdited, description, onDelete, onComplete, onEdit, id } = this.props;
+    const { isCompleted, isEdited, description, onDelete, onComplete, onEdit, id, filterType } = this.props;
     const { timeToNow, value } = this.state;
     const className = isEdited && 'editing' || isCompleted && 'completed' || '';
+    let isHidden;
+
+    switch (filterType) {
+      case 'All': isHidden = false;
+        break;
+      case 'Active': isHidden = isCompleted;
+        break;
+      case 'Completed': isHidden = !isCompleted;
+        break;
+      default: isHidden = true;
+    }
 
     return (
-      <li className={className}>
+      <li className={className} hidden={isHidden}>
         <div>
           <div className="view">
-            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted} />
+            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted}/>
             <div className="label">
               <div className="description">{description}</div>
               <div className="counters">

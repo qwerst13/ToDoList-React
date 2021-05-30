@@ -6,19 +6,12 @@ import Task from './Task';
 import './TaskList.scss';
 
 const TaskList = ({ dataList, filterType, ...handlers }) => {
-  const filteredData = dataList.filter((item) => {
-    switch (filterType) {
-      case 'All': return true;
-      case 'Active': return !item.isCompleted;
-      case 'Completed': return item.isCompleted;
-      default: return false;
-    }
-  });
 
-  const elements = filteredData.map((element) => {
+
+  const elements = dataList.map((element) => {
     const { ...elementProperties } = element;
 
-    return <Task key={elementProperties.id} {...handlers} {...elementProperties} />;
+    return <Task key={elementProperties.id} {...handlers} {...elementProperties} filterType={filterType} />;
   });
 
   return <ul className="todo-list">{elements}</ul>;
