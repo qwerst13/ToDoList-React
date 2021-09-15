@@ -4,25 +4,27 @@ import PropTypes from 'prop-types';
 import './TaskFilter.scss';
 
 const TaskFilter = ({ filterTasks, selected }) => {
-    const buttonTypes = ['All', 'Active', 'Completed'];
+  const buttonTypes = ['All', 'Active', 'Completed'];
 
-    const buttons = buttonTypes.map((item) => {
-      let className = '';
-      if (item === selected) className = 'selected';
-
-      return (
-        <li key={item}>
-          <button type="button" className={className}>{item}</button>
-        </li>
-      );
-    });
+  const buttons = buttonTypes.map((item) => {
+    let className = '';
+    if (item === selected) className = 'selected';
 
     return (
-      <ul onClick={filterTasks} onKeyDown={filterTasks} className="filters">
-        {buttons}
-      </ul>
+      <li key={item}>
+        <button type="button" className={className}>
+          {item}
+        </button>
+      </li>
     );
-}
+  });
+
+  return (
+    <ul onClick={filterTasks} onKeyDown={filterTasks} className="filters">
+      {buttons}
+    </ul>
+  );
+};
 
 TaskFilter.defaultProps = {
   selected: '',

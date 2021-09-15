@@ -15,13 +15,13 @@ export default class NewTaskForm extends React.Component {
   state = { value: '' };
 
   changeInputState = (event) => {
-    const {value} = event.target;
+    const { value } = event.target;
     this.setState({ value });
   };
 
   createTask = (event) => {
-    const {createTask} = this.props;
-    const {value} = this.state;
+    const { createTask } = this.props;
+    const { value } = this.state;
 
     if (value.trim() === '') return;
 
@@ -36,13 +36,7 @@ export default class NewTaskForm extends React.Component {
     return (
       <header className="header">
         <h1>ToDo List</h1>
-        <input
-          onChange={this.changeInputState}
-          onKeyDown={this.createTask}
-          value={value}
-          className="new-todo"
-          placeholder="What needs to be done?"
-        />
+        <input onChange={this.changeInputState} onKeyDown={this.createTask} value={value} className="new-todo" placeholder="What needs to be done?" />
       </header>
     );
   }

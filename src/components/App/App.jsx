@@ -4,9 +4,10 @@ import Footer from '../Footer';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 
-import "./App.scss";
+import './App.scss';
 
-export class App extends React.Component { state = { data: [    this.createTodoItem('Create your task'),   ],                   activeFilter: 'All', };
+export class App extends React.Component {
+  state = { data: [this.createTodoItem('Create your task')], activeFilter: 'All' };
 
   deleteTask = (id) => {
     this.setState(({ data }) => {
@@ -17,15 +18,15 @@ export class App extends React.Component { state = { data: [    this.createTodoI
   };
 
   clearCompleted = () => {
-    this.setState(({data}) => {
+    this.setState(({ data }) => {
       const newData = data.filter((item) => !item.isCompleted);
 
-      return {data: newData}
+      return { data: newData };
     });
   };
 
   filterTasks = (event) => {
-    const {tagName, textContent} = event.target;
+    const { tagName, textContent } = event.target;
 
     if (tagName === 'BUTTON') {
       this.setState({ activeFilter: textContent });
@@ -40,7 +41,7 @@ export class App extends React.Component { state = { data: [    this.createTodoI
 
   completeTask = (id) => {
     this.setState(({ data }) => {
-      const newData = data.map((item) => (item.id === id) ? {...item, isCompleted: !item.isCompleted} : item);
+      const newData = data.map((item) => (item.id === id ? { ...item, isCompleted: !item.isCompleted } : item));
 
       return { data: newData };
     });
@@ -48,14 +49,14 @@ export class App extends React.Component { state = { data: [    this.createTodoI
 
   editTask = (id) => {
     this.setState(({ data }) => {
-      const newData = data.map((item) => (item.id === id) ? {...item, isEdited: !item.isEdited} : item);
+      const newData = data.map((item) => (item.id === id ? { ...item, isEdited: !item.isEdited } : item));
 
       return { data: newData };
     });
   };
 
   finishEditing = (value, id) => {
-    this.setState(({data}) => {
+    this.setState(({ data }) => {
       const index = data.findIndex((item) => item.id === id);
       const newItem = { ...data[index], description: value, isEdited: false };
 
@@ -63,9 +64,9 @@ export class App extends React.Component { state = { data: [    this.createTodoI
     });
   };
 
-  createTodoItem (value) {
-    return {id: Date.now(), isCompleted: false, isEdited: false, description: value, date: new Date(),}
-  };
+  createTodoItem(value) {
+    return { id: Date.now(), isCompleted: false, isEdited: false, description: value, date: new Date() };
+  }
 
   render() {
     const { data, activeFilter } = this.state;
@@ -87,12 +88,7 @@ export class App extends React.Component { state = { data: [    this.createTodoI
             />
           </section>
         </section>
-        <Footer
-          toDoCount={toDoCount}
-          filterTasks={this.filterTasks}
-          clearCompleted={this.clearCompleted}
-          selected={activeFilter}
-        />
+        <Footer toDoCount={toDoCount} filterTasks={this.filterTasks} clearCompleted={this.clearCompleted} selected={activeFilter} />
       </div>
     );
   }

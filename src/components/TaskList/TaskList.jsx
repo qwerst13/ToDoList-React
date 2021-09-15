@@ -6,8 +6,6 @@ import Task from './Task';
 import './TaskList.scss';
 
 const TaskList = ({ dataList, filterType, ...handlers }) => {
-
-
   const elements = dataList.map((element) => {
     const { ...elementProperties } = element;
 
@@ -15,7 +13,7 @@ const TaskList = ({ dataList, filterType, ...handlers }) => {
   });
 
   return <ul className="todo-list">{elements}</ul>;
-}
+};
 
 TaskList.defaultProps = {
   dataList: [],

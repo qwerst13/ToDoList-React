@@ -37,7 +37,7 @@ export default class Task extends React.Component {
   constructor(props) {
     super(props);
 
-    const {description, date} = props;
+    const { description, date } = props;
 
     this.state = {
       value: description,
@@ -62,7 +62,7 @@ export default class Task extends React.Component {
   };
 
   editTask = (event) => {
-    const {value} = event.target;
+    const { value } = event.target;
 
     this.setState({ value });
   };
@@ -79,24 +79,28 @@ export default class Task extends React.Component {
   render() {
     const { isCompleted, isEdited, description, onDelete, onComplete, onEdit, id, filterType } = this.props;
     const { timeToNow, value } = this.state;
-    const className = isEdited && 'editing' || isCompleted && 'completed' || '';
+    const className = (isEdited && 'editing') || (isCompleted && 'completed') || '';
     let isHidden;
 
     switch (filterType) {
-      case 'All': isHidden = false;
+      case 'All':
+        isHidden = false;
         break;
-      case 'Active': isHidden = isCompleted;
+      case 'Active':
+        isHidden = isCompleted;
         break;
-      case 'Completed': isHidden = !isCompleted;
+      case 'Completed':
+        isHidden = !isCompleted;
         break;
-      default: isHidden = true;
+      default:
+        isHidden = true;
     }
 
     return (
       <li className={className} hidden={isHidden}>
         <div>
           <div className="view">
-            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted}/>
+            <input onChange={() => onComplete(id)} className="toggle" type="checkbox" checked={isCompleted} />
             <div className="label">
               <div className="description">{description}</div>
               <div className="counters">
@@ -104,8 +108,12 @@ export default class Task extends React.Component {
                 <StopWatch />
               </div>
             </div>
-            <button type="button" onClick={() => onEdit(id)} className="icon icon-edit">Edit</button>
-            <button type="button" onClick={() => onDelete(id)} className="icon icon-destroy">Destroy</button>
+            <button type="button" onClick={() => onEdit(id)} className="icon icon-edit">
+              Edit
+            </button>
+            <button type="button" onClick={() => onDelete(id)} className="icon icon-destroy">
+              Destroy
+            </button>
           </div>
           <input onChange={this.editTask} onKeyDown={this.finishEditing} type="text" className="edit" value={value} />
         </div>

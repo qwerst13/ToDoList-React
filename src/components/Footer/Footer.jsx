@@ -6,14 +6,14 @@ import TasksFilter from './TasksFilter';
 import './Footer.scss';
 
 const Footer = ({ filterTasks, selected, toDoCount, clearCompleted }) => (
-    <footer className="footer">
-      <span className="todo-count">{toDoCount} items left</span>
-      <TasksFilter selected={selected} filterTasks={filterTasks} />
-      <button type="button" onClick={clearCompleted} className="clear-completed">
-        Clear completed
-      </button>
-    </footer>
-  );
+  <footer className="footer">
+    <span className="todo-count">{toDoCount} items left</span>
+    <TasksFilter selected={selected} filterTasks={filterTasks} />
+    <button type="button" onClick={clearCompleted} className="clear-completed">
+      Clear completed
+    </button>
+  </footer>
+);
 
 Footer.defaultProps = {
   toDoCount: 0,

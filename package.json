@@ -18,11 +18,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "prettier": "prettier --write src/**/*.js"
+    "prettier": "prettier --write src/**/*.jsx"
   },
   "browserslist": {
     "production": [
@@ -36,17 +34,13 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.(js|jsx)": [
       "npm run lint:fix",
       "npm run prettier",
-      "git add"
-    ]
+      "git add ."
+    ],
+    "*.js": "eslint --cache --fix"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
