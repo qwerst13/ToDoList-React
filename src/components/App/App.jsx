@@ -4,15 +4,9 @@ import Footer from '../Footer';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 
-import './App.scss';
+import "./App.scss";
 
-export default class App extends React.Component {
-  state = {
-    data: [
-      this.createTodoItem('Create your task'),
-    ],
-    activeFilter: 'All',
-  };
+export class App extends React.Component { state = { data: [    this.createTodoItem('Create your task'),   ],                   activeFilter: 'All', };
 
   deleteTask = (id) => {
     this.setState(({ data }) => {
