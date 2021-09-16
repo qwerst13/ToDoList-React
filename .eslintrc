@@ -4,14 +4,15 @@
     "jest": true
   },
   "extends": [
-    "airbnb",
+    "airbnb-typescript",
     "airbnb/hooks",
     "eslint-config-prettier",
     "prettier"
   ],
   "plugins": ["babel", "react", "prettier", "jsx-a11y", "import"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "sourceType": "module",
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -19,24 +20,31 @@
     }
   },
   "rules": {
-    "curly": ["error"],
     "max-depth": ["warn", 4],
     "max-len": ["warn", 150],
-    "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
+    "id-length": ["warn", { "exceptions": ["i", "j", "_"], "min": 2 }],
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+
     "no-lonely-if": ["error"],
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "jsx-a11y/label-has-associated-control": [ "error", { "assert": "either" }],
+
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
-    "jsx-a11y/label-has-associated-control": [ "error", {
-      "assert": "either"
-    }],
+    "curly": "off",
     "react/state-in-constructor": "off",
     "react/jsx-props-no-spreading": "off",
     "react/static-property-placement": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "react/jsx-filename-extension": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react-hooks/exhaustive-deps": "off"
   },
   "settings": {
     "react": {
