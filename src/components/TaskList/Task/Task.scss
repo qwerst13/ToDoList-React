@@ -116,6 +116,7 @@
         font-size: 13px;
         color: gray;
         text-align: end;
+
       }
       .description {
         word-wrap: break-word;
@@ -124,6 +125,10 @@
         transition: color 0.4s;
         font-weight: 400;
         color: #4d4d4d;
+
+        @media (max-width: 360px) {
+          font-size: 20px;
+        }
       }
       .counters {
         display: flex;
@@ -131,6 +136,10 @@
         justify-content: space-around;
         flex-basis: 35%;
         flex-shrink: 0;
+
+        @media (max-width: 360px) {
+          display: none;
+        }
       }
 
     }
